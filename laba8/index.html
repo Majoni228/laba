@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+function getRandomId() {
+    const seed = Date.now();
+    const x = Math.sin(seed) * 10000;
+    return Math.floor((x - Math.floor(x)) * 100) + 1;
+  }
+  
+  
+  const characterId = getRandomId();
+  
+  
+  const apiUrl = `https://anapioficeandfire.com/api/characters/${characterId}`;
+  
+  
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      
+      const character = {
+        name: data.name || "No name",
+        gender: data.gender || "Unknown",
+        culture: data.culture || "Unknown"
+      };
+  
+      
+      console.log(`Name: ${character.name}`);
+      console.log(`Gender: ${character.gender}`);
+      console.log(`Culture: ${character.culture}`);
+    })
+    .catch(error => {
+      console.error("Error fetching character data:", error.message);
+    });
+  
+    </script>
+</body>
+</html>
